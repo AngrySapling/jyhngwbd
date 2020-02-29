@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" /> 
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <script src="./js/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="jyhnbd">
+        <h1 class="title">简易慧能设备</h1>
+        <div class="content" >
+            <p style="padding-top:1.2rem;font-size:0.24rem;">关联设备:</p>
+            <div class="hardware" style="display: none;">
+                <img src="./image/icon1.png" alt="" >
+                <div class="msg">
+                    <p class="codetitle">设备码:</p>
+                    <p class="code">54646546</p>
+                </div>
+                <div class="unbind">解绑</div>
+            </div>
+            <div class="unbindmsg" style="display: none;">
+                <img src="./image/add.png" alt="">
+            </div>
+        </div>
+        
+        <div class="box">
+            <div class="playunbind">
+                <div class="eject">
+                    <p class="eje-title">提示</p>
+                    <p class="eje-content">确认解除绑定?</p>
+                    <ul class="btn">
+                        <li>取消</li>
+                        <li>确认</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="prompt" style="display: none;">
+            <div class="prompt-bnt">
+                <p class="prompt-title">提示</p>
+                <p class="prompt-content"></p>
+                <div class="prompt-btn">确认</div>
+            </div>
+        </div>
+        <div class="loading">
+            <div class="container">
+                <div class="item-1"></div>
+                <div class="item-2"></div>
+                <div class="item-3"></div>
+                <div class="item-4"></div>
+                <div class="item-5"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            //进行跳转获取openid
+            let url_config = 'http://192.168.199.228:8989';
+            url_config = 'http://39.100.100.205:8989';
+            /*$.ajax({
+                url: url_config, 
+                data:data,
+                type:"GET",
+                success: function(){
+                    $(this).addClass("done");
+                }
+            })*/
+            myBind()
+            //获取已经绑定的设备
+            function myBind (){
+                $.ajax({
+                    url: url_config+"/wechat/getPublicBindMessage", 
+                    data:JSON.stringify({openId:"lmm123"}),
+                    type:"POST",
+                    dataType: "json",
+                    headers: { 
+                        'Content-Type': 'application/json;charset=UTF-8'  
+                    },
+                    success: function(res){
+                        console.log(res,999)
+                        if(res.errCode === 1){
+                            $(".code").html(res.data.serialNumber)
+                            $(".hardware").show()
+                            $(".unbindmsg").hide()
+                        }else{
+                            $(".hardware").hide()
+                            $(".unbindmsg").show()
+                            // $(".prompt-content").html(res.errMsg)
+                            // $(".prompt").show()
+                        }
+                    }
+                })
+            }
+            //点击弹框确认按钮
+            $(".prompt-btn").click(function(){
+                $(".prompt").hide()
+            })
+            //点击解除绑定
+            $(".unbind").click(function(){
+                $(".box").show()
+            })
+            //点击确认与取消
+            $(".btn li").eq(0).click(function(){
+                $(".box").hide()
+            })
+            //点击确认
+            $(".btn li").eq(1).click(function(){
+                //点击解绑
+                $.ajax({
+                    url: url_config+"/wechat/publicUnBind", 
+                    data:JSON.stringify({openId:"lmm123"}),
+                    type:"POST",
+                    dataType: "json",
+                    headers: { 
+                        'Content-Type': 'application/json;charset=UTF-8'  
+                    },
+                    success: function(res){
+                        if(res.errCode === 1){
+                            $(".code").html(res.data)
+                            myBind()
+                        }else{
+                            $(".prompt-content").html(res.errMsg)
+                            $(".prompt").show()
+                        }
+                    }
+                })
+                $(".box").hide()
+            })
+            //点击进入添加绑定设备页
+            $(".unbindmsg").click(function(){
+                window.location.href= "bind.html"
+            })
+        });
+    </script>
+</body>
+</html>

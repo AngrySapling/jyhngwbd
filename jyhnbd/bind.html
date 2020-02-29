@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" /> 
+    <link rel="stylesheet" href="./css/bind.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <script src="./js/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="bind">
+        <h1 class="title">
+            <a href="index.html"><span class="icon"></span></a>
+            简易慧能设备绑定
+        </h1>
+        <div class="ejectbind">
+            <p style="padding-top: 1.2rem;font-size: 0.28rem;">设备绑定:</p>
+            <div class="bindipt">
+                <span>设备号:</span>
+                <input type="text">
+            </div>
+            <div class="btn">绑定</div>
+        </div>
+        <div class="prompt" style="display: none;">
+            <div class="prompt-bnt">
+                <p class="prompt-title">提示</p>
+                <p class="prompt-content"></p>
+                <div class="prompt-btn">确认</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+              //进行跳转获取openid
+            let url_config = 'http://192.168.199.228:8989';
+            url_config = 'http://39.100.100.205:8989';
+            let Status = false;
+            $(".btn").click(
+                 //获取已经绑定的设备
+                 function(){
+                    $.ajax({
+                        url: url_config+"/wechat/publicBind", 
+                        data:JSON.stringify({openId:"lmm123",serialNumber:"ecfabca7080d"}),
+                        type:"POST",
+                        dataType: "json",
+                        headers: { 
+                            'Content-Type': 'application/json;charset=UTF-8'  
+                        },
+                        success: function(res){
+                            if(res.errCode === 1){
+                                Status = true
+                                $(".prompt-content").html("设备绑定成功!")
+                            }else{
+                                Status = false
+                                $(".prompt-content").html(res.errMsg)
+                            }
+                           
+                            $(".prompt").show()
+                        }
+                    })
+                 }
+            )
+            $(".prompt-btn").click(function(){
+                if(Status){
+                    window.history.back(-1);
+                }else{
+                    $(".prompt").hide()
+                }
+            })
+        });
+    </script>
+</body>
+</html>

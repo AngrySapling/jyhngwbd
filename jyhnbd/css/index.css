@@ -1,0 +1,125 @@
+#jyhnbd{
+    display: flex;
+    height: 100%;
+    position: relative;
+}
+#jyhnbd .title{
+    position: fixed;
+    top: 0;
+    left: 0;
+    font-size: 0.40rem;
+    width: 100%;
+    text-align: center;
+    height: 1rem;
+    line-height: 1rem;
+    background: #4a9587;
+    color: #fff;
+}
+#jyhnbd .content{
+    height: 100%;
+    width: 100%;
+    padding: 0 0.2rem;
+    background: #f2f2f2;
+}
+#jyhnbd .hardware{
+    position: relative;
+    display: flex;
+    margin-top: 0.2rem;
+    background: #ffffff;
+    padding: 0.2rem;
+    height: 1rem;
+}
+#jyhnbd .hardware img{
+    height: 1rem;
+    width: 1rem;
+    margin-right: 0.2rem;
+    vertical-align: top;
+}
+#jyhnbd .hardware .msg{
+    flex: 1;
+}
+#jyhnbd .hardware .msg .codetitle{
+    height: 0.4rem;
+    line-height: 0.4rem;
+    font-size: 0.24rem;
+}
+#jyhnbd .hardware .msg .code{
+    height: 0.6rem;
+    line-height: 0.6rem;
+    font-size: 0.4rem;
+}
+#jyhnbd .hardware .unbind{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 0.6rem;
+    height: 1.4rem;
+    background: red;
+    color: #fff;
+    padding:0 0.2rem;
+    font-size: 0.3rem;
+    line-height: 1.4rem;
+}
+.box{
+    display: none;
+}
+.playunbind{
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    height: 100vh;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+.playunbind .eject{
+    width: 80%;
+    background: #fff;
+    border-radius: 0.2rem;
+    overflow: hidden;
+}
+.playunbind .eje-title{
+    height: 0.8rem;
+    line-height: 0.8rem;
+    text-align: center;
+    font-size: 0.36rem;
+}
+.playunbind .eje-content{
+    border-top: 1px solid #f2f2f2;
+    padding:0.2rem;
+    line-height: 0.4rem;
+    min-height: 1rem;
+    text-align: center;
+    font-size: 0.30rem;
+}
+.playunbind .btn{
+    border-top:1px solid #f1f1f1;
+    height: 1rem;
+    line-height: 1rem;
+    display: flex;
+}
+.playunbind .btn li{
+    flex: 1;
+    text-align: center;
+    border-right: 1px solid #f1f1f1;
+    font-size: 0.3rem;
+}
+.playunbind .btn li:last-child{
+    border-right: none;
+}
+.unbindmsg{
+    width: 7.1rem;
+    height: 1.4rem;
+    margin: 0 auto;
+    margin-top: 0.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+}
+.unbindmsg img{
+
+}
